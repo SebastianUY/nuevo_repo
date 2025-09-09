@@ -1,29 +1,88 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Crear Moto</title>
+    <style>
+        body {
+            background-image: url('{% static "inicio/img/fondo.jpg" %}');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            color: #ffffff; 
+            font-family: sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        h1, p {
+            text-align: center;
+        }
+
+        nav a {
+            color: #f00a0aff;
+            margin: 0 15px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        form {
+            max-width: 500px;
+            margin: 0 auto;
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 20px;
+            border-radius: 8px;
+        }
+        
+        input[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .mensaje-exito {
+            text-align: center;
+            padding: 10px;
+            background-color: #181c18ff;
+            color: white;
+            border-radius: 5px;
+            max-width: 500px;
+            margin: 20px auto;
+        }
+    </style>
 </head>
 <body>
+    {% load static %}
     <nav>
-        <a href={% url "inicio" %}>Inicio</a>
-        <a href={% url "crear_moto" %}>Crear moto</a>
-        <a href={% url "listado_moto" %}>moto</a>
+        <a href="{% url "inicio" %}">Inicio</a>
+        <a href="{% url "crear_moto" %}">Crear moto</a>
+        <a href="{% url "listado_moto" %}">Listado de motos</a>
     </nav>
 
    <h1>Formulario de creación</h1>
 
-   <form action={% url "crear_moto" %} method="POST">
+   <form action="{% url "crear_moto" %}" method="POST">
     {% csrf_token %}
 
-    {{formulario}}
+    {{ formulario.as_p }}
 
     <input type="submit" value="Crear">
 
     {% comment "" %}<button>Crear</button>{% endcomment %}
    </form>
    
-    {% comment "" %} Has ingresado una nueva moto muchas gracias por tu aporte}
+    {% comment "" %} 
+    Has ingresado una nueva moto muchas gracias por tu aporte
+    {% endcomment %}
+
+    {% if mensaje_exito %}
+    <p>{{ mensaje_exito }}</p>
+    <a href="{% url "listado_moto" %}">Ir al listado de motos</a>
+    {% endif %}
+
 </body>
 </html>

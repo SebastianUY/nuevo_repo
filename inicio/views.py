@@ -8,27 +8,27 @@ def inicio(request):
    return render(request,'inicio.html' )
 
 def crear_moto(request):
-    
+    mensaje_exito = "" 
+    formulario = FormularioCreacionMoto()
+
     if request.method == "POST":
         formulario = FormularioCreacionMoto(request.POST)
         if formulario.is_valid():
             marca_nueva = formulario.cleaned_data.get('marca')
             modelo_nuevo = formulario.cleaned_data.get('modelo')
             
-            moto = moto(marca= marca_nueva, modelo = modelo_nuevo)
-            moto.save()
+            moto_nueva = moto(marca= marca_nueva, modelo = modelo_nuevo)
+            moto_nueva.save()
+            mensaje_exito = "¡Has ingresado una nueva moto! Muchas gracias por tu aporte."
     
-    else:
+  
         formulario= FormularioCreacionMoto()
 
-    return render(request, 'inicio/crear_moto.html', {'formulario': formulario })
+    return render(request, 'crear_moto.html', {'formulario': formulario, 'mensaje_exito': mensaje_exito})
+
 
 def listado_moto(request):
     
-    moto = moto.objects.all
+    motos = moto.objects.all()
     
-    return render(request, 'inicio'/listado_moto.html, {'listado_de_moto': moto})
-
-    #return HttpResponse('<h1>HOLA ESTA ES MI PRIMERA VISTA</h1>')
-
-# Create your views here
+    return render(request, 'listado_moto.html', {'listado_moto': motos})

@@ -9,17 +9,19 @@
     <nav>
         <a href={% url "inicio" %}>Inicio</a>
         <a href={% url "crear_moto" %}>Crear moto</a>
-        <a href={% url "listado_moto" %}>moto</a>
+        <a href={% url "listado_moto" %}>Listado de motos</a>
     </nav>
     
     <h1>Listado de motos</h1>
     <ul>
-    {% for in listado_moto %}
+    {% for moto in listado_moto %}
     <li>
     {{moto}}
     </li>
     {% endfor %}
 
+
+    <a href="{% url "inicio" %}">Volver a inicio</a>
     </ul>
 </body>
 </html>
